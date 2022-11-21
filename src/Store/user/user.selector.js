@@ -1,0 +1,1 @@
+export const selectCurUser = (state) => state.user.curUser;
