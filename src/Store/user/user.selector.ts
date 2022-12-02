@@ -1,3 +1,4 @@
+import { RootState } from "../Store";
 import { UserState } from "./UserReducer";
 
-export const selectCurUser = (state):UserState => state.user.curUser;
+export const selectCurUser = (state:RootState)  => state.user.curUser;

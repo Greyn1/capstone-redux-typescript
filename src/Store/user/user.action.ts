@@ -4,4 +4,4 @@ import { UserData } from "../../Utils/Firebase";
 
 export type SetCurUser = ActionWithPayload<USER_ACTION_TYPE.SET_CURRENT_USER, UserData>;
 
-export const setCurUser = withMatcher((user) : SetCurUser => createAction(USER_ACTION_TYPE.SET_CURRENT_USER, user));
+export const setCurUser = withMatcher((user:UserData) : SetCurUser => createAction(USER_ACTION_TYPE.SET_CURRENT_USER, user));
