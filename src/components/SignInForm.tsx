@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import {
-    createAuthUserWithEmailAndPassword,
     signInWithGooglePopUp,
     signInAuthUserWithEmailAndPassword
 } from "../Utils/Firebase";
 import FormInput from "./FormInput";
 import Button, {BUTTON_TYPE_CLASSES} from './Button';
 import '../Styles/SignInForm.styles.scss';
+import { AuthError } from "firebase/auth";
 
 const defaultFormFields = {
     email: '',
@@ -26,14 +26,14 @@ export default function SignInForm() {
         await signInWithGooglePopUp();
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
             await signInAuthUserWithEmailAndPassword(email, password);
             resetFormFields();
         } catch (error) {
-            switch (error.code) {
+            switch ((error as AuthError).code) {
                 case 'auth/wrong-password':
                     alert('incorrect password for email');
                     break;
@@ -48,7 +48,7 @@ export default function SignInForm() {
         }
     };
 
-    const handleChange = (event) => {
+    const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
     };
